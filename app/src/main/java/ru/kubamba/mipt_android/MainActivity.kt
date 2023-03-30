@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -52,9 +53,17 @@ class MainActivity : ComponentActivity() {
                             onValueChange = { newText: String ->
                                 username = newText
                             },
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color.Gray,
+                                disabledTextColor = Color.Transparent,
+                                backgroundColor = Color.White,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledIndicatorColor = Color.Transparent
+                            ),
                             placeholder = { Text("Email") },
                             singleLine = true,
-                            modifier = Modifier.height(57.dp).width(325.dp).clip(RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp)).padding(bottom = 5.dp)
+                            modifier = Modifier.border(1.dp, Color.LightGray, RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp)).height(57.dp).width(325.dp)
                         )
 
                         var password by remember {
@@ -66,9 +75,17 @@ class MainActivity : ComponentActivity() {
                             onValueChange = { newText: String ->
                                 password = newText
                             },
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color.Gray,
+                                disabledTextColor = Color.Transparent,
+                                backgroundColor = Color.White,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledIndicatorColor = Color.Transparent
+                            ),
                             placeholder = { Text("Password") },
                             singleLine = true,
-                            modifier = Modifier.height(57.dp).width(325.dp).clip(RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp)).padding(top = 5.dp)
+                            modifier = Modifier.padding(top = 5.dp).border(1.dp, Color.LightGray, RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp)).height(57.dp).width(325.dp)
                         )
 
 
@@ -96,8 +113,6 @@ class MainActivity : ComponentActivity() {
                                 color = Color.White,
                                 fontSize = 16.sp)
                         }
-
-
                     }
                 }
             }
