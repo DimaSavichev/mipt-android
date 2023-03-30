@@ -1,5 +1,6 @@
 package ru.kubamba.mipt_android
 
+import SignIn
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -29,114 +30,10 @@ class MainActivity : ComponentActivity() {
             MiptandroidTheme() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Logo()
-
-                        Text(
-                            text = "Login To Your Account",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(bottom = 20.dp)
-                        )
-
-
-                        var username by remember {
-                            mutableStateOf("")
-                        }
-
-                        TextField(
-                            value = username,
-                            onValueChange = { newText: String ->
-                                username = newText
-                            },
-                            colors = TextFieldDefaults.textFieldColors(
-                                textColor = Color.Gray,
-                                disabledTextColor = Color.Transparent,
-                                backgroundColor = Color.White,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                disabledIndicatorColor = Color.Transparent
-                            ),
-                            placeholder = { Text("Email") },
-                            singleLine = true,
-                            modifier = Modifier.border(1.dp, Color.LightGray, RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp)).height(57.dp).width(325.dp)
-                        )
-
-                        var password by remember {
-                            mutableStateOf("")
-                        }
-
-                        TextField(
-                            value = password,
-                            onValueChange = { newText: String ->
-                                password = newText
-                            },
-                            colors = TextFieldDefaults.textFieldColors(
-                                textColor = Color.Gray,
-                                disabledTextColor = Color.Transparent,
-                                backgroundColor = Color.White,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                disabledIndicatorColor = Color.Transparent
-                            ),
-                            placeholder = { Text("Password") },
-                            singleLine = true,
-                            modifier = Modifier.padding(top = 5.dp).border(1.dp, Color.LightGray, RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp)).height(57.dp).width(325.dp)
-                        )
-
-
-
-                        TextButton(
-                            onClick = {},
-                            modifier = Modifier.padding(bottom = 20.dp, top = 30.dp)
-                        )
-                        {
-                            Text(
-                                text = "Forgot Your Password?",
-                                color = Color(0xFF53E88B),
-                                fontSize = 12.sp
-                            )
-                        }
-
-                        Button(
-                            onClick = {},
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF53E88B)),
-                            modifier = Modifier.height(57.dp).width(141.dp).clip(RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
-                        )
-                        {
-                            Text(
-                                text = "Login",
-                                color = Color.White,
-                                fontSize = 16.sp)
-                        }
-                    }
+                    SignIn()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Logo() {
-    val image = painterResource(id = R.drawable.image_44)
-    Image(
-        painter = image,
-        contentDescription = null,
-        modifier = Modifier.height(139.dp).width(175.dp))
-
-    Text(
-        text = "FoodNinja",
-        fontSize = 40.sp,
-        color = Color(0xFF53E88B)
-    )
-
-    Text(
-        text = "Deliver Favourite Food",
-        fontSize = 13.sp,
-        modifier = Modifier.padding(bottom = 20.dp)
-    )
-}

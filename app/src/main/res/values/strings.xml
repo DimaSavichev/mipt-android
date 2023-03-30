@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">mipt-android</string>
+    <string name="app_title">FoodNinja</string>
+    <string name="app_subtitle">Deliver Favourite Food</string>
+    <string name="email_field">Email</string>
+    <string name="password_field">Password</string>
+    <string name="login_button">Login</string>
+    <string name="forgot_password">Forgot Your Password?</string>
+    <string name="login_to_your_account">Login To Your Account</string>
 </resources>
