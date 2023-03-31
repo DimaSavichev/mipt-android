@@ -14,9 +14,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.kubamba.mipt_android.R
+import ru.kubamba.mipt_android.SignInViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ru.kubamba.mipt_android.SignInEvent
 
 @Composable
-fun SignIn() {
+fun SignInScreen() {
+    val signInViewModel: SignInViewModel = viewModel()
+    val signInViewState = signInViewModel.viewState.collectAsState()
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -37,10 +43,8 @@ fun SignIn() {
         }
 
         TextField(
-            value = username,
-            onValueChange = { newText: String ->
-                username = newText
-            },
+            value = signInViewState.value.email,
+            onValueChange = { signInViewModel.obtainEvent(SignInEvent.EmailChanged(it)) },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Color.Gray,
                 disabledTextColor = Color.Transparent,
@@ -62,10 +66,8 @@ fun SignIn() {
         }
 
         TextField(
-            value = password,
-            onValueChange = { newText: String ->
-                password = newText
-            },
+            value = signInViewState.value.password,
+            onValueChange = { signInViewModel.obtainEvent(SignInEvent.PasswordChanged(it)) },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Color.Gray,
                 disabledTextColor = Color.Transparent,
@@ -86,7 +88,7 @@ fun SignIn() {
 
 
         TextButton(
-            onClick = {},
+            onClick = { signInViewModel.obtainEvent(SignInEvent.ForgotPassword) },
             modifier = Modifier.padding(bottom = 20.dp, top = 30.dp)
         )
         {
@@ -98,7 +100,7 @@ fun SignIn() {
         }
 
         Button(
-            onClick = {},
+            onClick = { signInViewModel.obtainEvent(SignInEvent.Login) },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF53E88B)),
             modifier = Modifier
                 .height(57.dp)
