@@ -7,4 +7,7 @@
     <string name="login_button">Login</string>
     <string name="forgot_password">Forgot Your Password?</string>
     <string name="login_to_your_account">Login To Your Account</string>
+    <string name="find_your_food">Find Your Favourite Food</string>
+    <string name="nearest">Nearest Restaurants</string>
+    <string name="popular">Popular Restaurants</string>
 </resources>
