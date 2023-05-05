@@ -7,12 +7,13 @@ import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import ru.kubamba.mipt_android.RestaurantRepository
+import ru.kubamba.mipt_android.data.RestaurantRepository
 import javax.inject.Singleton
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
+import ru.kubamba.mipt_android.data.RestaurantDao
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -29,7 +30,7 @@ class RestaurantsModule {
 
     @Provides
     @Singleton
-    fun provideRestaurantRepository(client: HttpClient): RestaurantRepository {
-        return RestaurantRepository(client)
+    fun provideRestaurantRepository(client: HttpClient, dao: RestaurantDao): RestaurantRepository {
+        return RestaurantRepository(client, dao)
     }
 }

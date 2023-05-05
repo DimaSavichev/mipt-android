@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.material.Text
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
@@ -35,13 +36,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import ru.kubamba.mipt_android.data.RemoteRestaurant
 
 
 @SuppressLint("ResourceType")
 @Composable
 fun RestaurantsScreen() {
     val restaurantsViewModel: RestaurantsViewModel = viewModel()
-    val restaurantsViewState by restaurantsViewModel.viewState.collectAsState()
+    val state by restaurantsViewModel.viewState.observeAsState()
+    val restaurantsViewState = state ?: return
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -65,13 +68,13 @@ fun RestaurantsView(restaurantsViewModel: RestaurantsViewModel, restaurantsViewS
         fontSize = 15.sp,
         fontWeight = FontWeight.Bold
     )
-    RestaurantsGrid(restaurantsViewState.nearest)
+    RestaurantsGrid(restaurantsViewState.popular)
     Text(
         text = stringResource(R.string.nearest),
         fontSize = 15.sp,
         fontWeight = FontWeight.Bold
     )
-    RestaurantsGrid(restaurantsViewState.popular)
+    RestaurantsGrid(restaurantsViewState.nearest)
 }
 
 @Composable

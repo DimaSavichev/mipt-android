@@ -60,7 +60,7 @@ android {
 
 dependencies {
     def ktorVersion = "2.2.3"
-    def roomVersion = "2.5.0"
+    def roomVersion = "2.5.1"
     def navVersion = "2.5.3"
 
     implementation "com.google.dagger:hilt-android:2.44"
@@ -74,6 +74,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation("io.coil-kt:coil:2.2.2")
 
+    implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
