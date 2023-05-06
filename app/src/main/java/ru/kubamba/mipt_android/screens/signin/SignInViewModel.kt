@@ -1,7 +1,6 @@
-package ru.kubamba.mipt_android
+package ru.kubamba.mipt_android.screens.signin
 
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

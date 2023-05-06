@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.kubamba.mipt_android.data.RestaurantDao
+import ru.kubamba.mipt_android.data.db.RestaurantDao
 import ru.kubamba.mipt_android.data.db.AppDatabase
 
 @Module

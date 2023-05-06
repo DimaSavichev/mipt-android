@@ -1,4 +1,4 @@
-package ru.kubamba.mipt_android
+package ru.kubamba.mipt_android.screens.restaurants
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.kubamba.mipt_android.data.RemoteRestaurant
 import ru.kubamba.mipt_android.data.RestaurantRepository
-import ru.kubamba.mipt_android.data.mapToRestaurantEntity
+import ru.kubamba.mipt_android.data.db.mapToRestaurantEntity
 import javax.inject.Inject
 
 data class RestaurantsViewState(

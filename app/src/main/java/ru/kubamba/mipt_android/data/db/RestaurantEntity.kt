@@ -1,4 +1,4 @@
-package ru.kubamba.mipt_android.data
+package ru.kubamba.mipt_android.data.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Dao
@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
+import ru.kubamba.mipt_android.data.RemoteRestaurant
 
 @Entity(tableName = "restaurants")
 class RestaurantEntity(
@@ -22,14 +23,3 @@ fun RemoteRestaurant.mapToRestaurantEntity(): RestaurantEntity =
 fun RestaurantEntity.mapToRemoteRestaurant(): RemoteRestaurant =
     RemoteRestaurant(id = id, name = name, image = logo, deliveryTime = time)
 
-@Dao
-interface RestaurantDao {
-    @Query("SELECT * FROM restaurants")
-    suspend fun getAll(): List<RestaurantEntity>
-
-    @Insert
-    suspend fun insertAll(vararg restaurants: RestaurantEntity)
-
-    @Delete
-    suspend fun delete(restaurantEntity: RestaurantEntity)
-}

@@ -1,4 +1,4 @@
-package ru.kubamba.mipt_android
+package ru.kubamba.mipt_android.screens.restaurants
 
 import android.annotation.SuppressLint
 import android.media.Image
@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import ru.kubamba.mipt_android.R
 import ru.kubamba.mipt_android.data.RemoteRestaurant
 
 

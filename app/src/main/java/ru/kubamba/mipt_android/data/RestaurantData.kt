@@ -7,6 +7,10 @@ import io.ktor.http.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.Serializable
+import ru.kubamba.mipt_android.data.db.RestaurantDao
+import ru.kubamba.mipt_android.data.db.mapToRemoteRestaurant
+import ru.kubamba.mipt_android.data.db.mapToRestaurantEntity
+import ru.kubamba.mipt_android.data.db.mapToRestaurantEntity
 import javax.inject.Inject
 
 @Serializable
@@ -32,11 +36,13 @@ data class RemoteCommercial(
 
 class RestaurantRepository @Inject constructor(
     private val httpClient: HttpClient,
-    private val restaurantDao: RestaurantDao) {
+    private val restaurantDao: RestaurantDao
+) {
 
     suspend fun fetchRestaurants(): Flow<CatalogResponse> {
         return flow {
             val cache = restaurantDao.getAll()
+
             if (cache.isNotEmpty()) {
                 emit(
                     CatalogResponse(
@@ -52,9 +58,9 @@ class RestaurantRepository @Inject constructor(
                     method = HttpMethod.Get
                 }.body<CatalogResponse>()
 
-                restaurantDao.insertAll(*response.popular.map { it.mapToRestaurantEntity() }.toTypedArray())
                 emit(response)
-            } catch (e: Exception) {
+                restaurantDao.insertAll(*response.popular.map { it.mapToRestaurantEntity() }.toTypedArray())
+            } catch (_: Exception) {
 
             }
         }
