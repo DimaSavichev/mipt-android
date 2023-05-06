@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import ru.kubamba.mipt_android.R
 import ru.kubamba.mipt_android.data.RemoteRestaurant
@@ -42,8 +44,7 @@ import ru.kubamba.mipt_android.data.RemoteRestaurant
 
 @SuppressLint("ResourceType")
 @Composable
-fun RestaurantsScreen() {
-    val restaurantsViewModel: RestaurantsViewModel = viewModel()
+fun RestaurantsScreen(restaurantsViewModel: RestaurantsViewModel, navController: NavController) {
     val state by restaurantsViewModel.viewState.observeAsState()
     val restaurantsViewState = state ?: return
 
@@ -58,28 +59,28 @@ fun RestaurantsScreen() {
             modifier = Modifier.padding(bottom = 20.dp)
         )
 
-        RestaurantsView(restaurantsViewModel, restaurantsViewState)
+        RestaurantsView(restaurantsViewModel, restaurantsViewState, navController)
     }
 }
 
 @Composable
-fun RestaurantsView(restaurantsViewModel: RestaurantsViewModel, restaurantsViewState: RestaurantsViewState) {
+fun RestaurantsView(restaurantsViewModel: RestaurantsViewModel, restaurantsViewState: RestaurantsViewState, navController: NavController) {
     Text(
         text = stringResource(R.string.popular),
         fontSize = 15.sp,
         fontWeight = FontWeight.Bold
     )
-    RestaurantsGrid(restaurantsViewState.popular)
+    RestaurantsGrid(restaurants = restaurantsViewState.popular, navController = navController)
     Text(
         text = stringResource(R.string.nearest),
         fontSize = 15.sp,
         fontWeight = FontWeight.Bold
     )
-    RestaurantsGrid(restaurantsViewState.nearest)
+    RestaurantsGrid(restaurants = restaurantsViewState.nearest, navController = navController)
 }
 
 @Composable
-fun RestaurantsGrid(restaurants: List<RemoteRestaurant>) {
+fun RestaurantsGrid(restaurants: List<RemoteRestaurant>, navController: NavController) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(8.dp),
@@ -95,7 +96,7 @@ fun RestaurantsGrid(restaurants: List<RemoteRestaurant>) {
                     1.dp,
                     Color.LightGray,
                     RoundedCornerShape(22.dp, 22.dp, 22.dp, 22.dp)
-                ),
+                ).clickable { navController.navigate("detail/${restaurant.name}") },
             elevation = 0.dp
         ) {
             Column(

@@ -28,11 +28,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import ru.kubamba.mipt_android.R
 
 @Composable
-fun SignInScreen() {
-    val signInViewModel: SignInViewModel = viewModel()
+fun SignInScreen(signInViewModel: SignInViewModel, navController: NavController) {
     val signInViewState by signInViewModel.viewState.collectAsState()
 
     Column(
@@ -49,15 +49,15 @@ fun SignInScreen() {
             modifier = Modifier.padding(bottom = 20.dp)
         )
 
-        SignInView(signInViewModel, signInViewState)
+        SignInView(signInViewModel, signInViewState, navController)
     }
 }
 
 @Composable
-fun SignInView(signInViewModel: SignInViewModel, signInViewState: SignInViewState) {
+fun SignInView(signInViewModel: SignInViewModel, signInViewState: SignInViewState, navController: NavController) {
     TextField(
         value = signInViewState.email,
-        onValueChange = { signInViewModel.obtainEvent(SignInEvent.EmailChanged(it)) },
+        onValueChange = { signInViewModel.obtainEvent(SignInEvent.EmailChanged(it), navController) },
         colors = TextFieldDefaults.textFieldColors(
             textColor = Color.Gray,
             disabledTextColor = Color.Transparent,
@@ -76,7 +76,7 @@ fun SignInView(signInViewModel: SignInViewModel, signInViewState: SignInViewStat
 
     TextField(
         value = signInViewState.password,
-        onValueChange = { signInViewModel.obtainEvent(SignInEvent.PasswordChanged(it)) },
+        onValueChange = { signInViewModel.obtainEvent(SignInEvent.PasswordChanged(it), navController) },
         colors = TextFieldDefaults.textFieldColors(
             textColor = Color.Gray,
             disabledTextColor = Color.Transparent,
@@ -97,7 +97,7 @@ fun SignInView(signInViewModel: SignInViewModel, signInViewState: SignInViewStat
 
 
     TextButton(
-        onClick = { signInViewModel.obtainEvent(SignInEvent.ForgotPassword) },
+        onClick = { signInViewModel.obtainEvent(SignInEvent.ForgotPassword, navController) },
         modifier = Modifier.padding(bottom = 20.dp, top = 30.dp)
     )
     {
@@ -109,7 +109,7 @@ fun SignInView(signInViewModel: SignInViewModel, signInViewState: SignInViewStat
     }
 
     Button(
-        onClick = { signInViewModel.obtainEvent(SignInEvent.Login) },
+        onClick = { signInViewModel.obtainEvent(SignInEvent.Login, navController = navController) },
         colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF53E88B)),
         modifier = Modifier
             .height(57.dp)

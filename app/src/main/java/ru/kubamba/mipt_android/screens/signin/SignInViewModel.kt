@@ -1,6 +1,7 @@
 package ru.kubamba.mipt_android.screens.signin
 
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -20,10 +21,10 @@ class SignInViewModel: ViewModel() {
     private val _viewState = MutableStateFlow(SignInViewState())
     val viewState: StateFlow<SignInViewState> = _viewState
 
-    fun obtainEvent(event: SignInEvent) {
+    fun obtainEvent(event: SignInEvent, navController: NavController) {
         when (event) {
             SignInEvent.ForgotPassword -> forgotPassword()
-            SignInEvent.Login -> login()
+            SignInEvent.Login -> login(navController)
             is SignInEvent.EmailChanged -> changeEmail(event.email)
             is SignInEvent.PasswordChanged -> changePassword(event.password)
         }
@@ -33,8 +34,12 @@ class SignInViewModel: ViewModel() {
 
     }
 
-    private fun login() {
-
+    private fun login(navController: NavController) {
+        navController.navigate("restaurants") {
+            popUpTo("signin") {
+                inclusive = true
+            }
+        }
     }
 
     private fun changeEmail(email: String) {
